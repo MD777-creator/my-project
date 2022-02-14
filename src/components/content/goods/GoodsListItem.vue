@@ -52,10 +52,4 @@ export default {
   color: var(--color-high-text);
   margin-right: 20px;
 }
-.goods-item:nth-last-child(2) {
-  margin-bottom: 49px;
-}
-.goods-item:nth-last-child(1) {
-  margin-bottom: 49px;
-}
 </style>

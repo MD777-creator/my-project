@@ -3,15 +3,18 @@
     <nav-bar class="home-nav">
       <template #center> <div>购物街</div> </template>
     </nav-bar>
-    <home-swiper :banners="banners" />
-    <recommend-view :recommends="recommends" />
-    <feature-view />
-    <tab-control
-      class="tab-control"
-      :titles="['流行', '新款', '精选']"
-      @tabClick="tabClick"
-    />
-    <good-list :goods="showGoods" />
+    <scroll class="content" ref="scroll">
+      <home-swiper :banners="banners" />
+      <recommend-view :recommends="recommends" />
+      <feature-view />
+      <tab-control
+        class="tab-control"
+        :titles="['流行', '新款', '精选']"
+        @tabClick="tabClick"
+      />
+      <good-list :goods="showGoods" />
+    </scroll>
+    <back-top @backClick="backClick" />
   </div>
 </template>
 
@@ -22,6 +25,8 @@ import RecommendView from "./childComps/RecommendView.vue";
 import FeatureView from "./childComps/FeatureView.vue";
 import TabControl from "../../components/content/TabControl/TabControl.vue";
 import GoodList from "../../components/content/goods/GoodsList.vue";
+import BackTop from "../../components/content/backTop/BackTop.vue";
+import Scroll from "../../components/common/scroll/Scroll.vue";
 import { getHomeMultidata, getHomeGoods } from "../../network/home";
 export default {
   name: "home",
@@ -43,12 +48,14 @@ export default {
     },
   },
   components: {
+    Scroll,
     NavBar,
     HomeSwiper,
     RecommendView,
     FeatureView,
     TabControl,
     GoodList,
+    BackTop,
   },
   created() {
     this.getHomeMultidata();
@@ -82,6 +89,10 @@ export default {
           this.currentType = "sell";
       }
     },
+    backClick() {
+      this.$refs.scroll.scrollTo(0, 0);
+      console.log(111);
+    },
   },
 };
 </script>
@@ -89,6 +100,8 @@ export default {
 <style scoped>
 #home {
   padding-top: 44px;
+  height: 100vh;
+  position: relative;
 }
 .home-nav {
   background-color: var(--color-tint);
@@ -104,5 +117,12 @@ export default {
   top: 44px;
   background-color: #fff;
   z-index: 9;
+}
+.content {
+  position: absolute;
+  top: 44px;
+  bottom: 49px;
+  left: 0;
+  right: 0;
 }
 </style>
