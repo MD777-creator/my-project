@@ -11,9 +11,6 @@ export default {};
 </script>
 
 <style scoped>
-.feature {
-  padding-bottom: 49px;
-}
 .feature img {
   width: 100%;
 }
