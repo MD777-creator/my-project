@@ -6,8 +6,12 @@
     <home-swiper :banners="banners" />
     <recommend-view :recommends="recommends" />
     <feature-view />
-    <tab-control class="tab-control" :titles="['流行', '新款', '精选']" />
-    <good-list :goods="goods['pop'].list" />
+    <tab-control
+      class="tab-control"
+      :titles="['流行', '新款', '精选']"
+      @tabClick="tabClick"
+    />
+    <good-list :goods="showGoods" />
   </div>
 </template>
 
@@ -30,7 +34,13 @@ export default {
         new: { page: 0, list: [] },
         sell: { page: 0, list: [] },
       },
+      currentType: "pop",
     };
+  },
+  computed: {
+    showGoods() {
+      return this.goods[this.currentType].list;
+    },
   },
   components: {
     NavBar,
@@ -60,6 +70,18 @@ export default {
         this.goods[type].page += 1;
       });
     },
+    tabClick(index) {
+      switch (index) {
+        case 0:
+          this.currentType = "pop";
+          break;
+        case 1:
+          this.currentType = "new";
+          break;
+        case 2:
+          this.currentType = "sell";
+      }
+    },
   },
 };
 </script>
@@ -81,5 +103,6 @@ export default {
   position: sticky;
   top: 44px;
   background-color: #fff;
+  z-index: 9;
 }
 </style>

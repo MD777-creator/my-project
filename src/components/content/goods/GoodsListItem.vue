@@ -4,7 +4,7 @@
     <div class="goods-info">
       <p>{{ goodsItem.title }}</p>
       <span class="price">{{ goodsItem.price }}</span>
-      <span class="collect">{{ goodsItem.cfav }}</span>
+      <span class="collect">☆ {{ goodsItem.cfav }}</span>
     </div>
   </div>
 </template>
@@ -27,6 +27,7 @@ export default {
 .goods-item {
   padding-bottom: 40px;
   position: relative;
+  width: 49%;
 }
 .goods-item img {
   width: 100%;
@@ -51,16 +52,10 @@ export default {
   color: var(--color-high-text);
   margin-right: 20px;
 }
-.goods-info .collect {
-  position: relative;
+.goods-item:nth-last-child(2) {
+  margin-bottom: 49px;
 }
-.goods-info .collect::before {
-  content: "";
-  position: absolute;
-  left: -15px;
-  top: -1px;
-  width: 14px;
-  height: 14px;
-  /* background: url("@/assets/img/common/collect.svg") 0 0/14px 14px; */
+.goods-item:nth-last-child(1) {
+  margin-bottom: 49px;
 }
 </style>
