@@ -3,7 +3,14 @@
     <nav-bar class="home-nav">
       <template #center> <div>购物街</div> </template>
     </nav-bar>
-    <scroll class="content" ref="scroll">
+    <scroll
+      class="content"
+      ref="scroll"
+      :probe-type="3"
+      :pullUpLoad="true"
+      @scroll="contentScroll"
+      @pullingUp="loadMore"
+    >
       <home-swiper :banners="banners" />
       <recommend-view :recommends="recommends" />
       <feature-view />
@@ -14,7 +21,7 @@
       />
       <good-list :goods="showGoods" />
     </scroll>
-    <back-top @backClick="backClick" />
+    <back-top @backClick="backClick" v-show="isShowBackTop" />
   </div>
 </template>
 
@@ -40,6 +47,7 @@ export default {
         sell: { page: 0, list: [] },
       },
       currentType: "pop",
+      isShowBackTop: false,
     };
   },
   computed: {
@@ -91,7 +99,12 @@ export default {
     },
     backClick() {
       this.$refs.scroll.scrollTo(0, 0);
-      console.log(111);
+    },
+    contentScroll(position) {
+      this.isShowBackTop = -position.y > 1000 ? true : false;
+    },
+    loadMore() {
+      console.log("上拉加载成功");
     },
   },
 };

@@ -1,10 +1,23 @@
 <template>
-  <h2>我的</h2>
+  <div>
+    <scroll class="content"></scroll>
+  </div>
 </template>
 
 <script>
-export default {};
+import Scroll from "../../components/common/scroll/Scroll.vue";
+export default {
+  name: "Profile",
+  components: {
+    Scroll,
+  },
+};
 </script>
 
-<style>
+<style scoped>
+.content {
+  height: 300px;
+  background-color: red;
+  overflow: hidden;
+}
 </style>
