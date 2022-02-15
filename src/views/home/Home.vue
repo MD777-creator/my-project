@@ -9,7 +9,6 @@
       :probe-type="3"
       :pullUpLoad="true"
       @scroll="contentScroll"
-      @pullingUp="loadMore"
     >
       <home-swiper :banners="banners" />
       <recommend-view :recommends="recommends" />
@@ -35,6 +34,7 @@ import GoodList from "../../components/content/goods/GoodsList.vue";
 import BackTop from "../../components/content/backTop/BackTop.vue";
 import Scroll from "../../components/common/scroll/Scroll.vue";
 import { getHomeMultidata, getHomeGoods } from "../../network/home";
+import { debounce } from "../../common/utils";
 export default {
   name: "home",
   data() {
@@ -71,6 +71,12 @@ export default {
     this.getHomeGoods("new");
     this.getHomeGoods("sell");
   },
+  mounted() {
+    const refresh = debounce(this.$refs.scroll.refresh, 200);
+    this.$bus.$on("itemImageLoad", () => {
+      refresh();
+    });
+  },
   methods: {
     getHomeMultidata() {
       getHomeMultidata().then((res) => {
@@ -102,9 +108,6 @@ export default {
     },
     contentScroll(position) {
       this.isShowBackTop = -position.y > 1000 ? true : false;
-    },
-    loadMore() {
-      console.log("上拉加载成功");
     },
   },
 };
