@@ -9,6 +9,7 @@
       :probe-type="3"
       :pullUpLoad="true"
       @scroll="contentScroll"
+      @pullingUp="loadMore"
     >
       <home-swiper :banners="banners" />
       <recommend-view :recommends="recommends" />
@@ -89,6 +90,7 @@ export default {
       getHomeGoods(type, page).then((res) => {
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
+        this.$refs.scroll.finishPullUp();
       });
     },
     tabClick(index) {
@@ -109,6 +111,9 @@ export default {
     contentScroll(position) {
       this.isShowBackTop = -position.y > 1000 ? true : false;
     },
+    loadMore() {
+      this.getHomeGoods(this.currentType);
+    },
   },
 };
 </script>
@@ -126,12 +131,6 @@ export default {
   left: 0;
   right: 0;
   top: 0;
-  z-index: 9;
-}
-.tab-control {
-  position: sticky;
-  top: 44px;
-  background-color: #fff;
   z-index: 9;
 }
 .content {
