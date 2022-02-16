@@ -29,7 +29,7 @@ import {
   GoodsParam,
 } from "../../network/detail";
 import GoodsList from "../../components/content/goods/GoodsList.vue";
-import { debounce } from "../../common/utils";
+import { itemListenerMixin } from "../../common/mixin";
 import Scroll from "../../components/common/scroll/Scroll.vue";
 export default {
   name: "Detail",
@@ -44,6 +44,7 @@ export default {
     GoodsList,
     Scroll,
   },
+  mixins: [itemListenerMixin],
   data() {
     return {
       iid: null,
@@ -54,7 +55,6 @@ export default {
       paramInfo: {},
       commentInfo: {},
       recommends: [],
-      itemImgListener: null,
     };
   },
   created() {
@@ -79,11 +79,7 @@ export default {
       this.recommends = res.data.list;
     });
   },
-  mounted() {
-    const refresh = debounce(this.$refs.scroll.refresh, 200);
-    this.itemImgListener = () => refresh();
-    this.$bus.$on("itemImgLoad", this.itemImgListener);
-  },
+  mounted() {},
   destroyed() {
     this.$bus.$off("itemImgLoad", this.itemImgListener);
   },

@@ -41,10 +41,12 @@ import TabControl from "../../components/content/TabControl/TabControl.vue";
 import GoodList from "../../components/content/goods/GoodsList.vue";
 import BackTop from "../../components/content/backTop/BackTop.vue";
 import Scroll from "../../components/common/scroll/Scroll.vue";
+import { itemListenerMixin } from "../../common/mixin";
 import { getHomeMultidata, getHomeGoods } from "../../network/home";
 import { debounce } from "../../common/utils";
 export default {
   name: "home",
+  mixins: [itemListenerMixin],
   data() {
     return {
       banners: [],
@@ -59,7 +61,6 @@ export default {
       tabOffsetTop: 0,
       isTabFixed: false,
       saveY: 0,
-      itemImgListener: null,
     };
   },
   computed: {
@@ -91,11 +92,7 @@ export default {
     this.getHomeGoods("new");
     this.getHomeGoods("sell");
   },
-  mounted() {
-    const refresh = debounce(this.$refs.scroll.refresh, 200);
-    this.itemImgListener = () => refresh();
-    this.$bus.$on("itemImageLoad", this.itemImgListener);
-  },
+  mounted() {},
   methods: {
     getHomeMultidata() {
       getHomeMultidata().then((res) => {
