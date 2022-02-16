@@ -59,6 +59,7 @@ export default {
       tabOffsetTop: 0,
       isTabFixed: false,
       saveY: 0,
+      itemImgListener: null,
     };
   },
   computed: {
@@ -81,6 +82,7 @@ export default {
     this.$refs.scroll.refresh();
   },
   deactivated() {
+    this.$bus.$off("itemImgLoad", this.itemImgListener);
     this.saveY = this.$refs.scroll.getScrollY();
   },
   created() {
@@ -91,9 +93,8 @@ export default {
   },
   mounted() {
     const refresh = debounce(this.$refs.scroll.refresh, 200);
-    this.$bus.$on("itemImageLoad", () => {
-      refresh();
-    });
+    this.itemImgListener = () => refresh();
+    this.$bus.$on("itemImageLoad", this.itemImgListener);
   },
   methods: {
     getHomeMultidata() {
