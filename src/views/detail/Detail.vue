@@ -44,6 +44,7 @@ export default {
   created() {
     this.iid = this.$route.params.iid;
     getDetail(this.iid).then((res) => {
+      console.log(res);
       const data = res.result;
       this.topImages = data.itemInfo.topImages;
       this.goods = new Goods(
