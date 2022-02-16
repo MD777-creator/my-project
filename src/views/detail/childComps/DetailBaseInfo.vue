@@ -75,13 +75,13 @@ export default {
   line-height: 30px;
   display: flex;
   font-size: 13px;
-  border-bottom: 1px solid rgba(100, 100, 100, 0.1);
+  border-bottom: 1px solid rgba(100, 100, 100, 0.04);
   justify-content: space-between;
 }
 .info-service {
   display: flex;
   justify-content: space-between;
-  line-height: 30px;
+  line-height: 60px;
 }
 .info-service-item img {
   width: 14px;

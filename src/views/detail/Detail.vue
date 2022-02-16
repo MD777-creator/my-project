@@ -1,9 +1,13 @@
 <template>
   <div id="detail">
-    <detail-nav-bar />
-    <detail-swiper :top-images="topImages" />
-    <detail-base-info :goods="goods" />
-    <detail-shop-info :shop="shop" />
+    <detail-nav-bar class="detail-nav" />
+    <scroll class="content" ref="scroll">
+      <detail-swiper :top-images="topImages" />
+      <detail-base-info :goods="goods" />
+      <detail-shop-info :shop="shop" />
+      <detail-goods-info :detail-info="detailInfo" @imageLoad="imageLoad" />
+      <detail-param-info :param-info="paramInfo" />
+    </scroll>
   </div>
 </template>
 
@@ -12,7 +16,10 @@ import DetailNavBar from "./childComps/DetailNavBar.vue";
 import DetailSwiper from "./childComps/DetailSwiper.vue";
 import DetailBaseInfo from "./childComps/DetailBaseInfo.vue";
 import DetailShopInfo from "./childComps/DetailShopInfo.vue";
-import { getDetail, Goods, Shop } from "../../network/detail";
+import Scroll from "../../components/common/scroll/Scroll.vue";
+import DetailGoodsInfo from "./childComps/DetailGoodsInfo.vue";
+import DetailParamInfo from "./childComps/DetailParamInfo.vue";
+import { getDetail, Goods, Shop, GoodsParam } from "../../network/detail";
 export default {
   name: "Detail",
   components: {
@@ -20,6 +27,9 @@ export default {
     DetailSwiper,
     DetailBaseInfo,
     DetailShopInfo,
+    DetailGoodsInfo,
+    DetailParamInfo,
+    Scroll,
   },
   data() {
     return {
@@ -27,6 +37,8 @@ export default {
       topImages: [],
       goods: {},
       shop: {},
+      detailInfo: {},
+      paramInfo: {},
     };
   },
   created() {
@@ -40,10 +52,34 @@ export default {
         data.shopInfo.services
       );
       this.shop = new Shop(data.shopInfo);
+      this.detailInfo = data.detailInfo;
+      this.paramInfo = new GoodsParam(
+        data.itemParams.info,
+        data.itemParams.rule
+      );
     });
+  },
+  methods: {
+    imageLoad() {
+      this.$refs.scroll.refresh();
+    },
   },
 };
 </script>
 
-<style>
+<style scoped>
+#detail {
+  position: relative;
+  z-index: 99999;
+  background-color: #fff;
+  height: 100vh;
+}
+.detail-nav {
+  position: relative;
+  z-index: 9;
+  background-color: #fff;
+}
+.content {
+  height: calc(100% - 44px);
+}
 </style>
