@@ -121,8 +121,9 @@ export default {
       product.image = this.topImages[0];
       product.tilte = this.goods.title;
       product.desc = this.goods.desc;
-      product.price = this.goods.newPrice;
+      product.price = this.goods.realPrice;
       product.iid = this.iid;
+      this.$store.dispatch("addCart", product);
     },
   },
 };
