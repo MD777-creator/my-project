@@ -39,14 +39,12 @@ import RecommendView from "./childComps/RecommendView.vue";
 import FeatureView from "./childComps/FeatureView.vue";
 import TabControl from "../../components/content/TabControl/TabControl.vue";
 import GoodList from "../../components/content/goods/GoodsList.vue";
-import BackTop from "../../components/content/backTop/BackTop.vue";
 import Scroll from "../../components/common/scroll/Scroll.vue";
-import { itemListenerMixin } from "../../common/mixin";
+import { itemListenerMixin, backTopMixin } from "../../common/mixin";
 import { getHomeMultidata, getHomeGoods } from "../../network/home";
-import { debounce } from "../../common/utils";
 export default {
   name: "home",
-  mixins: [itemListenerMixin],
+  mixins: [itemListenerMixin, backTopMixin],
   data() {
     return {
       banners: [],
@@ -57,7 +55,6 @@ export default {
         sell: { page: 0, list: [] },
       },
       currentType: "pop",
-      isShowBackTop: false,
       tabOffsetTop: 0,
       isTabFixed: false,
       saveY: 0,
@@ -76,7 +73,6 @@ export default {
     FeatureView,
     TabControl,
     GoodList,
-    BackTop,
   },
   activated() {
     this.$refs.scroll.scrollTo(0, this.saveY, 0);
@@ -121,9 +117,6 @@ export default {
       }
       this.$refs.tabControl1.currentIndex = index;
       this.$refs.tabControl2.currentIndex = index;
-    },
-    backClick() {
-      this.$refs.scroll.scrollTo(0, 0);
     },
     contentScroll(position) {
       this.isShowBackTop = -position.y > 1000;
