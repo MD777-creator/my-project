@@ -26,6 +26,9 @@ export default {
   border-radius: 50%;
   border: 1px solid #aaa;
 }
+.check-button img {
+  margin-top: 1px;
+}
 .check {
   border-color: red;
   background-color: red;

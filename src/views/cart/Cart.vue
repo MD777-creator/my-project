@@ -6,6 +6,7 @@
       </template>
     </nav-bar>
     <cart-list />
+    <cart-buttom-bar />
   </div>
 </template>
 
@@ -13,11 +14,13 @@
 import { mapGetters } from "vuex";
 import NavBar from "../../components/common/navbar/NavBar.vue";
 import CartList from "./childComps/CartList.vue";
+import CartButtomBar from "./childComps/CartButtomBar.vue";
 export default {
   name: "Cart",
   components: {
     NavBar,
     CartList,
+    CartButtomBar,
   },
   computed: {
     ...mapGetters(["cartLength"]),
