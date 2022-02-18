@@ -119,7 +119,7 @@ export default {
     addToCart() {
       const product = {};
       product.image = this.topImages[0];
-      product.tilte = this.goods.title;
+      product.title = this.goods.title;
       product.desc = this.goods.desc;
       product.price = this.goods.realPrice;
       product.iid = this.iid;
