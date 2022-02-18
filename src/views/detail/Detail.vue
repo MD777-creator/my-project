@@ -34,6 +34,7 @@ import {
 import GoodsList from "../../components/content/goods/GoodsList.vue";
 import { itemListenerMixin, backTopMixin } from "../../common/mixin";
 import Scroll from "../../components/common/scroll/Scroll.vue";
+import { mapActions } from "vuex";
 export default {
   name: "Detail",
   components: {
@@ -89,6 +90,7 @@ export default {
     this.$bus.$off("itemImgLoad", this.itemImgListener);
   },
   methods: {
+    ...mapActions(["addCart"]),
     imageLoad() {
       this.$refs.scroll.refresh();
       this.themeTopYs = [];
@@ -123,7 +125,9 @@ export default {
       product.desc = this.goods.desc;
       product.price = this.goods.realPrice;
       product.iid = this.iid;
-      this.$store.dispatch("addCart", product);
+      this.addCart(product).then((res) => {
+        console.log(res);
+      });
     },
   },
 };
