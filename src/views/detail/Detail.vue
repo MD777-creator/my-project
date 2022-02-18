@@ -126,7 +126,7 @@ export default {
       product.price = this.goods.realPrice;
       product.iid = this.iid;
       this.addCart(product).then((res) => {
-        console.log(res);
+        this.$toast.show(res, 500);
       });
     },
   },
