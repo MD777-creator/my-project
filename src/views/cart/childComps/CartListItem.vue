@@ -1,8 +1,8 @@
 <template>
   <div id="shop-item">
-    <!-- <div class="item-selector">
-
-    </div> -->
+    <div class="item-selector">
+      <check-button />
+    </div>
     <div class="item-img">
       <img :src="itemInfo.image" alt="商品图片" />
     </div>
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import CheckButton from "../../../components/content/checkButton/CheckButton.vue";
 export default {
   name: "CartListItem",
   props: {
@@ -27,6 +28,9 @@ export default {
         return {};
       },
     },
+  },
+  components: {
+    CheckButton,
   },
 };
 </script>
