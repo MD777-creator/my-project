@@ -20,34 +20,23 @@
         <div class="account-info">我的积分</div>
       </div>
     </section>
-    <list-view :list-data="orderList" class="order-list" />
-    <list-view :list-data="serviceList" class="service-list" />
+    <main-list />
   </div>
 </template>
 
 <script>
 import NavBar from "../../components/common/navbar/NavBar.vue";
 import UserInfo from "./ChildComps/UserInfo.vue";
-import ListView from "./ChildComps/ListView.vue";
+import MainList from "./ChildComps/MainList.vue";
 export default {
   name: "Profile",
   components: {
     NavBar,
     UserInfo,
-    ListView,
+    MainList,
   },
   data() {
-    return {
-      orderList: [
-        { icon: "#order", iconColor: "#ff8198", info: "我的消息" },
-        { icon: "#point", iconColor: "#fc7b53", info: "积分商城" },
-        { icon: "#vip", iconColor: "#ffc636", info: "会员卡" },
-      ],
-      serviceList: [
-        { icon: "#service", iconColor: "#ff8198", info: "我的购物车" },
-        { icon: "#download", iconColor: "#ff8198", info: "下载购物APP" },
-      ],
-    };
+    return {};
   },
 };
 </script>
