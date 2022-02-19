@@ -136,6 +136,7 @@ export default {
 #home {
   height: 100vh;
   position: relative;
+  font-size: 13px;
 }
 .home-nav {
   background-color: var(--color-tint);
