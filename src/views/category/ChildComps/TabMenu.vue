@@ -6,7 +6,7 @@
         :class="{ active: index === currentIndex }"
         v-for="(item, index) in categories"
         :key="index"
-        @click="itemClick"
+        @click="itemClick(index)"
       >
         {{ item.title }}
       </div>
