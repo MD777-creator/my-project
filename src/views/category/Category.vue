@@ -7,7 +7,7 @@
     </nav-bar>
     <div class="content">
       <tab-menu :categories="categories" @selectItem="selectItem" />
-      <scroll id="tab-content" :data="[categoryData]">
+      <scroll id="tab-content" :data="[categoryData]" ref="scroll">
         <div>
           <tab-content-category :subcategories="showSubcategory" />
           <tab-control
@@ -34,7 +34,7 @@ import {
   getCategoryDetail,
 } from "../../network/category";
 import { POP, NEW, SELL } from "../../common/const";
-import { tabControlMixin } from "../../common/mixin";
+import { tabControlMixin, itemListenerMixin } from "../../common/mixin";
 export default {
   name: "Category",
   components: {
@@ -45,7 +45,7 @@ export default {
     TabControl,
     TabContentDetail,
   },
-  mixins: [tabControlMixin],
+  mixins: [tabControlMixin, itemListenerMixin],
   data() {
     return {
       categories: [],
