@@ -34,7 +34,11 @@ import {
   getCategoryDetail,
 } from "../../network/category";
 import { POP, NEW, SELL } from "../../common/const";
-import { tabControlMixin, itemListenerMixin } from "../../common/mixin";
+import {
+  tabControlMixin,
+  itemListenerMixin,
+  recordPosition,
+} from "../../common/mixin";
 export default {
   name: "Category",
   components: {
@@ -45,7 +49,8 @@ export default {
     TabControl,
     TabContentDetail,
   },
-  mixins: [tabControlMixin, itemListenerMixin],
+  mixins: [tabControlMixin, itemListenerMixin, recordPosition],
+
   data() {
     return {
       categories: [],

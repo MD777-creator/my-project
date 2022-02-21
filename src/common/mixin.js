@@ -14,6 +14,20 @@ export const itemListenerMixin = {
     this.$bus.$on("itemImageLoad", this.itemImgListener);
   }
 }
+export const recordPosition = {
+  data() {
+    return {
+      saveY: 0,
+    }
+  },
+  activated() {
+    this.$refs.scroll.scrollTo(0, this.saveY, 0);
+    this.$refs.scroll.refresh();
+  },
+  deactivated() {
+    this.saveY = this.$refs.scroll.getScrollY();
+  },
+}
 export const backTopMixin = {
   components: {
     BackTop

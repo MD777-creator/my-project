@@ -40,11 +40,15 @@ import FeatureView from "./childComps/FeatureView.vue";
 import TabControl from "../../components/content/TabControl/TabControl.vue";
 import GoodList from "../../components/content/goods/GoodsList.vue";
 import Scroll from "../../components/common/scroll/Scroll.vue";
-import { itemListenerMixin, backTopMixin } from "../../common/mixin";
+import {
+  itemListenerMixin,
+  backTopMixin,
+  recordPosition,
+} from "../../common/mixin";
 import { getHomeMultidata, getHomeGoods } from "../../network/home";
 export default {
   name: "home",
-  mixins: [itemListenerMixin, backTopMixin],
+  mixins: [itemListenerMixin, backTopMixin, recordPosition],
   data() {
     return {
       banners: [],
@@ -57,7 +61,6 @@ export default {
       currentType: "pop",
       tabOffsetTop: 0,
       isTabFixed: false,
-      saveY: 0,
     };
   },
   computed: {
@@ -74,13 +77,8 @@ export default {
     TabControl,
     GoodList,
   },
-  activated() {
-    this.$refs.scroll.scrollTo(0, this.saveY, 0);
-    this.$refs.scroll.refresh();
-  },
   deactivated() {
     this.$bus.$off("itemImgLoad", this.itemImgListener);
-    this.saveY = this.$refs.scroll.getScrollY();
   },
   created() {
     this.getHomeMultidata();
