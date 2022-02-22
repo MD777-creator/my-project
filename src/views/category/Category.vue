@@ -6,7 +6,11 @@
       </template>
     </nav-bar>
     <div class="content">
-      <tab-menu :categories="categories" @selectItem="selectItem" />
+      <tab-menu
+        :categories="categories"
+        class="tab-menu"
+        @selectItem="selectItem"
+      />
       <scroll id="tab-content" :data="[categoryData]" ref="scroll">
         <div>
           <tab-content-category :subcategories="showSubcategory" />
@@ -31,13 +35,13 @@ import TabContentDetail from "./ChildComps/TabContentDetail.vue";
 import {
   getCategory,
   getSubcategory,
-  getCategoryDetail,
+  getCategoryDetail
 } from "../../network/category";
 import { POP, NEW, SELL } from "../../common/const";
 import {
   tabControlMixin,
   itemListenerMixin,
-  recordPosition,
+  recordPosition
 } from "../../common/mixin";
 export default {
   name: "Category",
@@ -47,7 +51,7 @@ export default {
     TabMenu,
     TabContentCategory,
     TabControl,
-    TabContentDetail,
+    TabContentDetail
   },
   mixins: [tabControlMixin, itemListenerMixin, recordPosition],
 
@@ -55,7 +59,7 @@ export default {
     return {
       categories: [],
       categoryData: {},
-      currentIndex: -1,
+      currentIndex: -1
     };
   },
   computed: {
@@ -68,14 +72,14 @@ export default {
       return this.categoryData[this.currentIndex].categoryDetail[
         this.currentType
       ];
-    },
+    }
   },
   created() {
     this._getCategory();
   },
   methods: {
     _getCategory() {
-      getCategory().then((res) => {
+      getCategory().then(res => {
         this.categories = res.data.category.list;
         for (let i = 0; i < this.categories.length; i++) {
           this.categoryData[i] = {
@@ -83,8 +87,8 @@ export default {
             categoryDetail: {
               pop: [],
               new: [],
-              sell: [],
-            },
+              sell: []
+            }
           };
         }
         this._getSubcategories(0);
@@ -93,7 +97,7 @@ export default {
     _getSubcategories(index) {
       this.currentIndex = index;
       const mailKey = this.categories[index].maitKey;
-      getSubcategory(mailKey).then((res) => {
+      getSubcategory(mailKey).then(res => {
         this.categoryData[index].subcategories = res.data;
         this.categoryData = { ...this.categoryData };
         this._getCategoryDetail(POP);
@@ -103,15 +107,16 @@ export default {
     },
     _getCategoryDetail(type) {
       const miniWallkey = this.categories[this.currentIndex].miniWallkey;
-      getCategoryDetail(miniWallkey, type).then((res) => {
+      getCategoryDetail(miniWallkey, type).then(res => {
         this.categoryData[this.currentIndex].categoryDetail[type] = res;
         this.categoryData = { ...this.categoryData };
       });
     },
     selectItem(index) {
       this._getSubcategories(index);
-    },
-  },
+      this.$refs.scroll.scrollTo(0, 0, 200);
+    }
+  }
 };
 </script>
 
@@ -131,6 +136,9 @@ export default {
   top: 44px;
   bottom: 49px;
   display: flex;
+}
+.tab-menu {
+  overflow: hidden;
 }
 #tab-content {
   height: 100%;
